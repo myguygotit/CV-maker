@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart CV Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Smart CV Builder</h1>
+        <div class="style-toggle">
+            <label for="style-switch">CV Style:</label>
+            <select id="style-switch">
+                <option value="professional">Professional (Text-Only)</option>
+                <option value="modern">Modern (Visual)</option>
+            </select>
+        </div>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <form id="cv-form">
+                <section id="personal-details">
+                    <h2>Personal Details</h2>
+                    <input type="text" id="name" placeholder="Full Name" required>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="tel" id="phone" placeholder="Phone">
+                    <input type="text" id="linkedin" placeholder="LinkedIn Profile URL">
+                    <div class="profile-picture-controls">
+                        <div id="profile-picture-preview" class="profile-picture-preview"></div>
+                        <input type="file" id="profile-picture" accept="image/*">
+                    </div>
+                </section>
+
+                <section id="professional-summary">
+                    <h2>Professional Summary</h2>
+                    <textarea id="summary" placeholder="Write a brief summary of your career..."></textarea>
+                    <button type="button" class="gemini-btn" data-target="summary">Help Me Improve</button>
+                </section>
+
+                <section id="work-experience">
+                    <h2>Work Experience</h2>
+                    <div id="experience-entries"></div>
+                    <button type="button" id="add-experience">Add Experience</button>
+                </section>
+
+                <section id="education">
+                    <h2>Education</h2>
+                    <div id="education-entries"></div>
+                    <button type="button" id="add-education">Add Education</button>
+                </section>
+
+                <section id="skills">
+                    <h2>Skills</h2>
+                    <div id="skills-entries"></div>
+                    <button type="button" id="add-skill">Add Skill</button>
+                </section>
+
+                <section id="projects">
+                    <h2>Projects</h2>
+                    <div id="projects-entries"></div>
+                    <button type="button" id="add-project">Add Project</button>
+                </section>
+
+                <section id="certifications">
+                    <h2>Certifications</h2>
+                    <div id="certifications-entries"></div>
+                    <button type="button" id="add-certification">Add Certification</button>
+                </section>
+            </form>
+        </div>
+
+        <div class="preview-container">
+            <div id="live-preview">
+                <!-- CV preview will be rendered here -->
+            </div>
+            <button id="download-pdf">Download PDF</button>
+        </div>
+    </main>
+
+    <div id="gemini-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Gemini CV Assistant</h2>
+            <p>Here are some suggestions to improve your text:</p>
+            <div id="gemini-suggestions"></div>
+            <div class="modal-actions">
+                <button id="accept-suggestion">Accept & Update</button>
+                <button id="copy-suggestion">Copy Text</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CV Templates (hidden) -->
+    <div id="templates" style="display: none;">
+        <div id="professional-template">
+            <div class="cv-header">
+                <h1 class="name">{name}</h1>
+                <p class="contact-info">{email} | {phone} | {linkedin}</p>
+            </div>
+            <div class="cv-section">
+                <h2 class="section-title">Professional Summary</h2>
+                <p class="summary">{summary}</p>
+            </div>
+            <div class="cv-section">
+                <h2 class="section-title">Work Experience</h2>
+                <div class="experience-list"></div>
+            </div>
+            <div class="cv-section">
+                <h2 class="section-title">Education</h2>
+                <div class="education-list"></div>
+            </div>
+            <div class="cv-section">
+                <h2 class="section-title">Skills</h2>
+                <ul class="skills-list"></ul>
+            </div>
+            <div class="cv-section">
+                <h2 class="section-title">Projects</h2>
+                <div class="projects-list"></div>
+            </div>
+            <div class="cv-section">
+                <h2 class="section-title">Certifications</h2>
+                <div class="certifications-list"></div>
+            </div>
+        </div>
+        <div id="modern-template">
+            <div class="cv-left-column">
+                <div class="profile-picture-container">
+                    <img src="" alt="Profile Picture" class="profile-picture">
+                </div>
+                <div class="contact-info-modern">
+                    <h3>Contact</h3>
+                    <p>{email}</p>
+                    <p>{phone}</p>
+                    <p>{linkedin}</p>
+                </div>
+                <div class="skills-modern">
+                    <h3>Skills</h3>
+                    <ul class="skills-list"></ul>
+                </div>
+            </div>
+            <div class="cv-right-column">
+                <h1 class="name">{name}</h1>
+                <div class="cv-section-modern">
+                    <h2 class="section-title-modern">Professional Summary</h2>
+                    <p class="summary">{summary}</p>
+                </div>
+                <div class="cv-section-modern">
+                    <h2 class="section-title-modern">Work Experience</h2>
+                    <div class="experience-list"></div>
+                </div>
+                <div class="cv-section-modern">
+                    <h2 class="section-title-modern">Education</h2>
+                    <div class="education-list"></div>
+                </div>
+                <div class="cv-section-modern">
+                    <h2 class="section-title-modern">Projects</h2>
+                    <div class="projects-list"></div>
+                </div>
+                <div class="cv-section-modern">
+                    <h2 class="section-title-modern">Certifications</h2>
+                    <div class="certifications-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
